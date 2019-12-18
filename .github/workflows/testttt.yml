@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Repository Dispatch
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.API }}
+        repository: ${{ secrets.SECRET_ORG }}/${{ secrets.REPO }}
+        event-type: my-event
+        client-payload: '{"info": "${{ github.event.issue }}"}'
+
