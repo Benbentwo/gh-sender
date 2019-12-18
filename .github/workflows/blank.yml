@@ -1,7 +1,8 @@
 name: CI
 
-on: [issue_created]
-
+on:
+  issues:
+    types: [opened]
 jobs:
   build:
 
@@ -10,8 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+      run: "${{ secrets.SECRET_SAUCE }} '${{ github.event.client_payload }}'"
+#      run: 'curl -XPOST -u "${{ secrets.SECRET_ORG }}:${{ secrets.API }}" -H "Accept: application/vnd.github.everest-preview+json"  -H "Content-Type: application/json" ${{ secrets.SOMEWHERE_SECRET}} --data ${{ secrets.GENERIC_JSON }} '
+
+
