@@ -16,5 +16,5 @@ jobs:
         token: ${{ secrets.API }}
         repository: ${{ secrets.SECRET_ORG }}/${{ secrets.REPO }}
         event-type: my-event
-        client-payload: '{"info": "${{ github.event.issue }}"}'
+        client-payload: '{"info": ${{ toJson(github.event.issue) }} }'
 
