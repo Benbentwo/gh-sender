@@ -13,7 +13,9 @@ jobs:
     - name: Debug
       run: echo "${{ toJson(github) }}"
     - name: Run a one-line script
-      run: "${{ secrets.SECRET_SAUCE }} '${{ toJson(github.event.issue) }}'"
+      run: |
+        json='"event_type":${{ toJson(github.event.issue) }}'
+        "${{ secrets.SECRET_SAUCE }} $json"
 #      run: 'curl -XPOST -u "${{ secrets.SECRET_ORG }}:${{ secrets.API }}" -H "Accept: application/vnd.github.everest-preview+json"  -H "Content-Type: application/json" ${{ secrets.SOMEWHERE_SECRET}} --data ${{ secrets.GENERIC_JSON }} '
 
 
